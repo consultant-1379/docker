@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+<!--Please Use the latest version of integration pom.xml or the one you want to reference to -->
+	<parent>
+		<groupId>com.ericsson.aia</groupId>
+		<artifactId>integration</artifactId>
+		<version>1.0.37</version>
+	</parent>
+
+	<groupId>containers</groupId>
+	<artifactId>docker</artifactId>
+	<version>1.0.24-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>[${project.artifactId}] JEE6 Project</name>
+
+	<properties>
+	   <ericsson.scm.url>scm:git:[fetch=]ssh://gerritmirror-ha.lmera.ericsson.se:29418/AIA/containers/docker[push=]ssh://gerrit.ericsson.se:29418/AIA/containers/docker</ericsson.scm.url>
+	</properties>
+
+	<!--Profiles for site documentation-->
+
+	 <!--Profile to deploy latest site-->
+	 <profiles>
+	  <profile>
+	     <id>site_latest</id>
+	        <distributionManagement>
+		       <site>
+		         <id>site</id>
+		         <name>Site</name>
+	                 <url>${site.url}/docker/latest</url>
+		       </site>
+		</distributionManagement>
+	  </profile>
+
+	 <!--Profile to stage site for review-->
+	 
+	   <profile>
+	      <id>site_review</id>
+	         <distributionManagement>
+		        <site>
+			  <id>site</id>
+			  <name>Site</name>
+		          <url>${site.url}</url>
+			</site>	
+                 </distributionManagement>
+           </profile>
+	   </profiles>
+	   <!--Deployment of versioned documentation-->	
+		<distributionManagement>
+		   <site>		
+		     <id>site</id>
+		     <name>Site</name>								      
+		     <url>${site.url}/docker/${project.version}</url>
+		   </site>
+       		   <snapshotRepository>
+       		       <id>aia-snapshots</id>
+                       <name>AIA Snapshots</name>
+                       <url>https://arm101-eiffel004.lmera.ericsson.se:8443/nexus/content/repositories/aia-snapshots</url>
+                   </snapshotRepository>
+                   <repository>
+                       <id>aia-releases</id>
+                       <name>AIA Releases</name>
+                       <url>https://arm101-eiffel004.lmera.ericsson.se:8443/nexus/content/repositories/aia-releases</url>
+                   </repository>
+              </distributionManagement>
+            <modules>
+    		<module>docker-jar</module>
+  	    </modules>
+
+  <scm>
+      <developerConnection>${ericsson.scm.url}</developerConnection>
+      <connection>${ericsson.scm.url}</connection>
+      <tag>docker-1.0.1</tag>
+  </scm>
+
+</project>
